@@ -12,7 +12,8 @@ class email:
         self.mail_addr_url = mail.replace('@','(a)').replace('.','-_-')   #当前邮箱获取邮件的URL
         self.time = 0
         self.get_email()
-        
+    def getMailAddr(self):
+        return self.mail_addr
     def __madeMailName(self):  #生成随机邮箱地址
         user_s = random.sample('zyxwvutsrqponmlkjihgfedcba1234567890',random.randint(4,9))
         user = ''.join(user_s)
@@ -48,17 +49,19 @@ class email:
         self.session.headers.update(header)
         header["Cookie"] = self.cookie
         url = config["mail_content_url"]+self.mail_addr_url+"/"+eml
+        print("邮件地址：",url)
         self.session.headers.update(header)  #更新cookie
-        res = session.get(url.split('\n')[0])
+        res = self.session.get(url.split('\n')[0])
         doc = PyQuery(res.text)
-        str = doc.find("span").html()
+        str = doc.find("body").text()
+        print(str)
         verify = re.findall(r"\[(.+?)\]",str)[0].strip()
         return verify
 
     def getCookie(self):
         self.session.headers.update({'User-Agent':"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36"})
-        head = session.get("https://bccto.me/")
-        self.cookie = 'UM_distinctid=16c999e56ae3c4-0d71057333df0a-3f385804-100200-16c999e56af404; CNZZDATA3645431=cnzz_eid%3D1577743675-1565943539-%26ntime%3D1565943539;mail="'+session.cookies.get("mail")+'";pgv_pvi=9883091968; pgv_si=s8566673408'
+        head = self.session.get("https://bccto.me/")
+        self.cookie = 'UM_distinctid=16c999e56ae3c4-0d71057333df0a-3f385804-100200-16c999e56af404; CNZZDATA3645431=cnzz_eid%3D1577743675-1565943539-%26ntime%3D1565943539;mail="'+self.session.cookies.get("mail")+'";pgv_pvi=9883091968; pgv_si=s8566673408'
     def get_email(self):   #获得10分钟邮箱
         post_data = {"mail": self.mail_addr}
         header={
@@ -83,13 +86,7 @@ class email:
                 return True
             else:
                 return False
-e = email()
-# e.getMailContent("7fMLgNPnQuHlmG1PNjdZPh.eml")
-while True:
-    eml = e.getmail()
-    if eml:
-        e.getMailContent(eml)
-    time.sleep(6)
+
 
 
 
