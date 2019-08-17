@@ -4,8 +4,10 @@ from getVpnAccount import *
 
 email = email()  #先生成一个邮箱
 account = vpnAccount(email.getMailAddr())  #准备开始申请账号
-account.sendCode()  #发送验证码
-print("验证码已发送")
+if account.sendCode():  #发送验证码
+    print("验证码已发送")
+else:
+    print("验证码发送错误")
 now  = time.time()
 error = False
 code = ""
@@ -27,3 +29,5 @@ if code == "":
 else:
     if account.signUp(code):
         print('注册的账号为：',email.getMailAddr())
+        print(account.getVpn())
+

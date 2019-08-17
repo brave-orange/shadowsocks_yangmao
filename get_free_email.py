@@ -17,7 +17,7 @@ class email:
     def __madeMailName(self):  #生成随机邮箱地址
         user_s = random.sample('zyxwvutsrqponmlkjihgfedcba1234567890',random.randint(4,9))
         user = ''.join(user_s)
-        host = config["mail_host"][random.randint(0,2)]
+        host = config["mail_host"][random.randint(0,1)]
         mail_addr = user+"@"+host
         return mail_addr
     def getmail(self):    #检查邮件
