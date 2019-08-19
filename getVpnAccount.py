@@ -53,16 +53,14 @@ class vpnAccount:   #注册vpn账号
         self.session.get(url)
         api_url = "https://mmpvpn.com/api/user/account" 
         res = self.session.get(api_url,headers=header)     #获取端口和密码
-        print(res.text)
         result = json.loads(res.text)
         password = result[0]['password']
         port = result[0]['port']
 
         host_api = "https://mmpvpn.com/api/user/server"   #获取服务器域名
-        res1 = self.session.get(host_api)     #获取端口和密码
+        res1 = self.session.get(host_api)     #获取地址
         host = json.loads(res1.text)
         hosts = []
-        for i in hosts:
+        for i in host:
             hosts.append(i["host"])
-
         return {"password":password,"port":port,"hosts":hosts}

@@ -23,10 +23,8 @@ class email:
     def getmail(self):    #检查邮件
         t = time.time()
         post_data = {"mail":self.mail_addr,"time":self.time,'-':int(round(t * 1000))}
-        print(post_data)
         res = requests.post(config["getmail_url"],post_data)
         result = json.loads(res.text)
-        print(result)
         if result["success"] == "true":
             self.time = result['time']
             if len(result['mail'])>0:
@@ -49,12 +47,10 @@ class email:
         self.session.headers.update(header)
         header["Cookie"] = self.cookie
         url = config["mail_content_url"]+self.mail_addr_url+"/"+eml
-        print("邮件地址：",url)
         self.session.headers.update(header)  #更新cookie
         res = self.session.get(url.split('\n')[0])
         doc = PyQuery(res.text)
         str = doc.find("body").text()
-        print(str)
         verify = re.findall(r"\[(.+?)\]",str)[0].strip()
         return verify
 
@@ -81,7 +77,6 @@ class email:
         res =  self.session.post(config["apply_url"],post_data,headers=header)
         if res:
             result = json.loads(res.text)
-            print(result)
             if result["success"] == "true":
                 return True
             else:
