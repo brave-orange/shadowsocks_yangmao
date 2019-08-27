@@ -9,10 +9,10 @@ def connectSSR(host):   ##连接ss服务器
         config["configs"] = []
         for item in host["hosts"]:
             config["configs"].append({
-              "server": item,
+              "server": item["host"],
               "server_port": host["port"],
               "password": host["password"],
-              "method": "aes-256-cfb",
+              "method": item["method"],
               "plugin": "",
               "plugin_opts": "",
               "remarks": "",
@@ -27,6 +27,8 @@ def connectSSR(host):   ##连接ss服务器
     os.system(shadowsocks_path+"/shadowsocks.exe")
 
 email = email()  #先生成一个邮箱
+print(config["vpn_sign_vpn"])
+
 account = vpnAccount(email.getMailAddr())  #准备开始申请账号
 if account.sendCode():  #发送验证码
     print("验证码已发送")
@@ -56,6 +58,8 @@ else:
         host = account.getVpn()
         print("ss服务器信息：",host)
         connectSSR(host)
+
+        #k57cvi8@119mail.com
 
 
 
