@@ -34,6 +34,7 @@ if account.sendCode():  #发送验证码
     print("验证码已发送")
 else:
     print("验证码发送错误")
+    exit()
 now  = time.time()
 error = False
 code = ""
@@ -50,16 +51,17 @@ while True:
         break
 if error:
     print("程序异常了")
+    exit()
 if code == "":
     print("验证码获取错误")
+    exit()
 else:
     if account.signUp(code):
         print('注册的账号为：',email.getMailAddr())
         host = account.getVpn()
         print("ss服务器信息：",host)
         connectSSR(host)
-
-        #k57cvi8@119mail.com
+     
 
 
 
