@@ -1,0 +1,47 @@
+api_host	config.py	/^api_host = "http:\/\/109.74.204.140:8000" #  --被屏蔽$/;"	v
+config	config.py	/^config = {$/;"	v
+shadowsocks_path	config.py	/^shadowsocks_path = "D:\/shadowsocks"/;"	v
+user_agent_list	config.py	/^user_agent_list = ["Mozilla\/5.0 (Windows NT 10.0; WOW64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/68.0.3440.106 Safari\/537.36",$/;"	v
+PyQuery	getVpnAccount.py	/^from pyquery import PyQuery$/;"	i
+__init__	getVpnAccount.py	/^    def __init__(self,email):$/;"	m	class:vpnAccount
+getVpn	getVpnAccount.py	/^    def getVpn(self):#获取ss账号$/;"	m	class:vpnAccount
+json	getVpnAccount.py	/^import requests,random,json,time,re$/;"	i
+random	getVpnAccount.py	/^import requests,random,json,time,re$/;"	i
+re	getVpnAccount.py	/^import requests,random,json,time,re$/;"	i
+requests	getVpnAccount.py	/^import requests,random,json,time,re$/;"	i
+sendCode	getVpnAccount.py	/^    def sendCode(self):$/;"	m	class:vpnAccount
+signUp	getVpnAccount.py	/^    def signUp(self,verifyCode):   #注册账号$/;"	m	class:vpnAccount
+time	getVpnAccount.py	/^import requests,random,json,time,re$/;"	i
+vpnAccount	getVpnAccount.py	/^class vpnAccount:   #注册vpn账号$/;"	c
+PyQuery	get_free_email.py	/^from pyquery import PyQuery$/;"	i
+__init__	get_free_email.py	/^    def __init__(self):$/;"	m	class:email
+__madeMailName	get_free_email.py	/^    def __madeMailName(self):  #生成随机邮箱地址$/;"	m	class:email	file:
+email	get_free_email.py	/^class email:$/;"	c
+getCookie	get_free_email.py	/^    def getCookie(self):$/;"	m	class:email
+getMailAddr	get_free_email.py	/^    def getMailAddr(self):$/;"	m	class:email
+getMailContent	get_free_email.py	/^    def getMailContent(self,eml):            #获取邮件中的验证码$/;"	m	class:email
+get_email	get_free_email.py	/^    def get_email(self):   #获得10分钟邮箱$/;"	m	class:email
+getmail	get_free_email.py	/^    def getmail(self):    #检查邮件$/;"	m	class:email
+json	get_free_email.py	/^import requests,random,json,time,re$/;"	i
+random	get_free_email.py	/^import requests,random,json,time,re$/;"	i
+re	get_free_email.py	/^import requests,random,json,time,re$/;"	i
+requests	get_free_email.py	/^import requests,random,json,time,re$/;"	i
+time	get_free_email.py	/^import requests,random,json,time,re$/;"	i
+updateCookie	get_free_email.py	/^    def updateCookie(self,cookie):$/;"	m	class:email
+account	run.py	/^account = vpnAccount(email.getMailAddr())  #准备开始申请账号$/;"	v
+code	run.py	/^        code = email.getMailContent(eml)$/;"	v
+code	run.py	/^code = ""$/;"	v
+connectSSR	run.py	/^def connectSSR(host):   ##连接ss服务器$/;"	f
+email	run.py	/^email = email()  #先生成一个邮箱$/;"	v
+eml	run.py	/^    eml = email.getmail()$/;"	v
+error	run.py	/^        error = False$/;"	v
+error	run.py	/^error = False$/;"	v
+host	run.py	/^        host = account.getVpn()$/;"	v
+now	run.py	/^now  = time.time()$/;"	v
+os	run.py	/^import os$/;"	i
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
