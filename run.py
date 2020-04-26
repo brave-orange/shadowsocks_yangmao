@@ -6,7 +6,7 @@ def connectSSR(host):   ##连接ss服务器
     with open(shadowsocks_path+"/gui-config.json","r+", encoding="utf-8") as f:
         res = f.read()
         config = json.loads(res)
-        config["configs"] = []
+        
         for item in host["hosts"]:
             config["configs"].append({
               "server": item["host"],
@@ -46,7 +46,7 @@ while True:
         code = email.getMailContent(eml)
         break
     time.sleep(6)
-    if time.time()-now > 60.0:   #超时未收到验证码，出错
+    if time.time()-now > 160.0:   #超时未收到验证码，出错
         error = False
         break
 if error:
