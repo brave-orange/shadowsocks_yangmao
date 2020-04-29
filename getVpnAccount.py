@@ -68,11 +68,13 @@ class vpnAccount:   #注册vpn账号
         api_url = self.baseurl+"/api/user/account" 
         res = self.session.get(api_url,headers=header)     #获取端口和密码
         result = json.loads(res.text)
-        print(result)
+        if len(result) == 0:
+            return False
         password = result[0]['password']
         port = result[0]['port']
         endTime = result[0]['data']['to']
-        timeArray = time.localtime(endTime/1000)
+        expireTime = result[0]['data']['expire']
+        timeArray = time.localtime(expireTime/1000)
         otherStyleTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
          
 
@@ -82,4 +84,4 @@ class vpnAccount:   #注册vpn账号
         hosts = []
         for i in host:
             hosts.append({"host":i["host"],"method":i["method"]})
-        return {"password":password,"port":port,"hosts":hosts,'end_time':otherStyleTime,'end_time_step':endTime}
+        return {"password":password,"port":port,"hosts":hosts,'end_time':otherStyleTime,'end_time_step':expireTime}

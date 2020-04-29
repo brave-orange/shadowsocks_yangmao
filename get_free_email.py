@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # encoding=utf-8
+# ["http://47.75.33.56:8080", "http://116.62.115.80:80", "http://104.194.82.209:80", "http://129.226.168.109:80", "http://95.179.253.182:80", "http://152.32.173.235:8080", "http://149.28.48.251:8080", "http://108.61.142.56:80", "http://172.245.86.158:81", "http://47.102.111.56:8005", "https://34.92.160.214:443", "http://144.34.222.34:80", "https://173.82.151.124:443", "http://144.34.168.135:18080", "http://67.209.179.76:80"]
 import requests,random,json,time,re
 from pyquery import PyQuery
 from config import *
@@ -62,7 +63,7 @@ class email:
         res = requests.get(url.split('\n')[0],headers=header)  #这里不能用上一次会话，会被判定为爬虫
         doc = PyQuery(res.text)
         str = doc.find("body").text()
-        verify = re.findall(r"\[(.+?)\]",str)[0].strip()
+        verify = re.findall(r"\[ (\d{6}) \]",str)[0].strip()
         return verify
 
     def getCookie(self):

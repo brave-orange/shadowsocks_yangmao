@@ -6,7 +6,7 @@ from getVpnAccount import *
 from myRedis import *
 from config import *
 import time
-
+#"https://47.75.188.161","https://34.92.160.214:443", "http://47.102.111.56:8005", "http://144.34.168.135:18080", "https://47.75.188.161:443", "http://129.226.168.109:80",
 
 HOSTSKEY = "check_ware"
 redis = RedisDb(config['redis']['host'],config['redis']['port'],config['redis']['password'])
@@ -17,9 +17,9 @@ count = redis.llen(HOSTSKEY)
 for item in range(count):
     oldData = redis.lpop(HOSTSKEY)
     now = time.time()*1000
-    if not (json.loads(oldData)['end_time_step'] - now)/1000 > (5*3600):
+    second = round((json.loads(oldData)['end_time_step'] - now))
+    if not second < 0-(3*3600):
         redis.rpush(HOSTSKEY,oldData)
-
 hostsFile = open('hosts/hosts.json','r')
 hosts = json.loads(hostsFile.read())
 print(hosts)
@@ -55,7 +55,11 @@ for hostItem in hosts:
                 host = account.getVpn()
                 hosts = []
                 print("ss服务器信息：",host)
+                if not host:   #这个站点没提供服务器
+                    continue
                 for x in host['hosts']:
+                    if x['host'] == "127.0.0.1":
+                        continue
                     x['password'] = host['password']
                     x['port'] = host['port']
                     x['end_time'] = host['end_time']
