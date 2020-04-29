@@ -78,7 +78,7 @@ class vpnAccount:   #注册vpn账号
         otherStyleTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
          
 
-        host_api = self.baseurl+"/api/user/server"   #获取服务器域名
+        host_api = self.baseurl+"/api/user/server"   #获取服务器域名python36 /website/goods/good_shap/server.py
         res1 = self.session.get(host_api)     #获取地址
         host = json.loads(res1.text)
         hosts = []
