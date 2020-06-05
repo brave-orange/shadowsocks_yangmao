@@ -49,7 +49,11 @@ class vpnAccount:   #注册vpn账号
             'email' : self.email,
             'password' : self.password
         }
-        res = self.session.post(url, data=json.dumps(postdata), headers=header)
+        try:
+            res = self.session.post(url, data=json.dumps(postdata), headers=header,timeout=8,verify=False)
+        except exceptions.Timeout as e:     #超时了
+            print("连接超时:"+url)
+            return False
         print(res.text)
         if res.text == "normal":
             return True
@@ -66,8 +70,12 @@ class vpnAccount:   #注册vpn账号
         url = self.baseurl+config["account_page_url"]
         self.session.get(url)
         api_url = self.baseurl+"/api/user/account" 
-        res = self.session.get(api_url,headers=header)     #获取端口和密码
-        result = json.loads(res.text)
+        try:
+            res = self.session.get(api_url,headers=header)     #获取端口和密码
+            result = json.loads(res.text)
+        except:
+            print("出现错误:"+res.text)
+            return False
         if len(result) == 0:
             return False
         password = result[0]['password']

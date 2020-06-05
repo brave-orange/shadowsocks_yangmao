@@ -10,7 +10,7 @@ import time
 
 HOSTSKEY = "check_ware"
 redis = RedisDb(config['redis']['host'],config['redis']['port'],config['redis']['password'])
-email = email()  #先生成一个邮箱
+
 
 print("先刷一遍数据")
 count = redis.llen(HOSTSKEY)
@@ -20,12 +20,14 @@ for item in range(count):
     second = round((json.loads(oldData)['end_time_step'] - now))
     if not second < 0-(3*3600):
         redis.rpush(HOSTSKEY,oldData)
-hostsFile = open('hosts/hosts.json','r')
+hostsFile = open('E:/Python/tool/shadowsocks_yangmao/hosts/hosts.json','r')
 hosts = json.loads(hostsFile.read())
 print(hosts)
 i=0
+newEmail = email()  #先生成一个邮箱
 for hostItem in hosts:
-    account = vpnAccount(email.getMailAddr(),hostItem)  #准备开始申请账号
+    
+    account = vpnAccount(newEmail.getMailAddr(),hostItem)  #准备开始申请账号
     if account.sendCode():  #发送验证码
         print("验证码已发送")
         now  = time.time()
@@ -33,11 +35,11 @@ for hostItem in hosts:
         code = ""
         print("开始等邮件")
         while True:
-            eml = email.getmail()
+            eml = newEmail.getmail()
             if eml:
                 print("收到验证码邮件")
                 time.sleep(3)
-                code = email.getMailContent(eml)
+                code = newEmail.getMailContent(eml)
                 break
             time.sleep(6)
             if time.time()-now > 120.0:   #超时未收到验证码，出错
@@ -51,7 +53,7 @@ for hostItem in hosts:
             continue
         else:
             if account.signUp(code):
-                print('注册的账号为：',email.getMailAddr())
+                print('注册的账号为：',newEmail.getMailAddr())
                 host = account.getVpn()
                 hosts = []
                 print("ss服务器信息：",host)
@@ -59,6 +61,7 @@ for hostItem in hosts:
                     continue
                 for x in host['hosts']:
                     if x['host'] == "127.0.0.1":
+                        print("代理IP为127.0.0.1")
                         continue
                     x['password'] = host['password']
                     x['port'] = host['port']

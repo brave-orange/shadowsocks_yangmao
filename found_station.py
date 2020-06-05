@@ -15,6 +15,7 @@ class zoomEy:
         "password":config['zoomeyPassword']
         }
         res = requests.post(loginUrl,json.dumps(data))
+        print(res)
         accessToken = json.loads(res.text)['access_token']
         self.token = accessToken
         print(accessToken)
@@ -36,13 +37,15 @@ class zoomEy:
             if not 'matches' in zoomRes:
                 break
             res = zoomRes['matches']
+            total = zoomRes['total']
             hosts = []
             for i in res:
                 hosts.append("%s://%s:%s"%(i['portinfo']['service'], i['ip'], i['portinfo']['port']))
             self.hosts.extend(hosts)
-            print("第%d页一共找到%d个节点"%(page,len(hosts)))
+            print("第%d页一共找到%d个节点,总共有:%d,可用:%d"%(page,len(hosts),total,zoomRes['available']))
         
     def screenStation(self, email, account):     #节点初筛
+        print("开始初筛节点,共有%d个待筛节点"%(len(self.hosts)))
         if len(self.hosts) > 0:
             i = 0
             while i < len(self.hosts):
