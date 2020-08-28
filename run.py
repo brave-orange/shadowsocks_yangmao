@@ -13,7 +13,7 @@ def connectSSR(host):   ##连接ss服务器
               "server_port": host["port"],
               "password": host["password"],
               "method": item["method"],
-              "plugin": "",
+              "plugin": "",  
               "plugin_opts": "",
               "remarks": "",
               "timeout": 5

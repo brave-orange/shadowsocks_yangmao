@@ -32,13 +32,13 @@ class email:
             'Connection': 'keep-alive',
             'Content-Length': '24',
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            'Cookie': 'pgv_pvi=5395792896; UM_distinctid=169945da30077-004c407c78306-5d1f3b1c-15f900-169945da301507; pgv_si=s7441818624; CNZZDATA3645431=cnzz_eid%3D187048399-1552967396-https%253A%252F%252Fbccto.me%252F%26ntime%3D1565853022; mail="2|1:0|10:1565855441|4:mail|40:Mzl0OHZ0MnNAYmNjdG8ubWV8MTU2NTg1NTQ0MQ==|44c7bcefa4f4a6c2b0fcb9da6bfd17ceaa3ff698e0b5ea96684d056042a0eace"; time="2|1:0|10:1565855441|4:time|16:MTU2NTg1NTQ0MQ==|d6140e57c92e116313744f4a8bb104255f3507e40798f01bb00867762afe2e75"',
-            'Host': 'bccto.me',
-            'Origin': 'https://bccto.me',
+            'Cookie': 'pgv_pvi=5395792896; UM_distinctid=169945da30077-004c407c78306-5d1f3b1c-15f900-169945da301507; pgv_si=s7441818624; CNZZDATA3645431=cnzz_eid%3D187048399-1552967396-https%253A%252F%252Frootsh.com%252F%26ntime%3D1565853022; mail="2|1:0|10:1565855441|4:mail|40:Mzl0OHZ0MnNAYmNjdG8ubWV8MTU2NTg1NTQ0MQ==|44c7bcefa4f4a6c2b0fcb9da6bfd17ceaa3ff698e0b5ea96684d056042a0eace"; time="2|1:0|10:1565855441|4:time|16:MTU2NTg1NTQ0MQ==|d6140e57c92e116313744f4a8bb104255f3507e40798f01bb00867762afe2e75"',
+            'Host': 'rootsh.com',
+            'Origin': 'https://rootsh.com',
             'Pragma': 'no-cache',
-            'Referer': 'https://bccto.me/'
+            'Referer': 'https://rootsh.com/'
             }
-        res = requests.get("https://bccto.me", headers=header)
+        res = requests.get("https://rootsh.com", headers=header)
         print(res.text)
     def getmail(self):    #检查邮件
         t = time.time()
@@ -65,7 +65,7 @@ class email:
                 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
                 'Cache-Control': 'no-cache',
                 'Connection': 'keep-alive',
-                'Host': 'bccto.me',
+                'Host': 'rootsh.com',
                 'Pragma': 'no-cache',
                 'Sec-Fetch-Mode' : 'navigate',
                 'Sec-Fetch-Site': 'none',
@@ -86,7 +86,7 @@ class email:
 
     def getCookie(self):
         self.session.headers.update({'User-Agent':"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36"})
-        head = self.session.get("https://bccto.me/")
+        head = self.session.get("https://rootsh.com/")
         headers={
         'Accept': 'application/json, text/javascript, */*; q=0.01',
         'Accept-Encoding': 'gzip, deflate, br',
@@ -95,11 +95,11 @@ class email:
         'Connection': 'keep-alive',
         'Content-Length': '24',
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'Cookie': 'pgv_pvi=5395792896; UM_distinctid=169945da30077-004c407c78306-5d1f3b1c-15f900-169945da301507; pgv_si=s7441818624; CNZZDATA3645431=cnzz_eid%3D187048399-1552967396-https%253A%252F%252Fbccto.me%252F%26ntime%3D1565853022; mail="2|1:0|10:1565855441|4:mail|40:Mzl0OHZ0MnNAYmNjdG8ubWV8MTU2NTg1NTQ0MQ==|44c7bcefa4f4a6c2b0fcb9da6bfd17ceaa3ff698e0b5ea96684d056042a0eace"; time="2|1:0|10:1565855441|4:time|16:MTU2NTg1NTQ0MQ==|d6140e57c92e116313744f4a8bb104255f3507e40798f01bb00867762afe2e75"',
-        'Host': 'bccto.me',
-        'Origin': 'https://bccto.me',
+        'Cookie': 'pgv_pvi=5395792896; UM_distinctid=169945da30077-004c407c78306-5d1f3b1c-15f900-169945da301507; pgv_si=s7441818624; CNZZDATA3645431=cnzz_eid%3D187048399-1552967396-https%253A%252F%252Frootsh.com%252F%26ntime%3D1565853022; mail="2|1:0|10:1565855441|4:mail|40:Mzl0OHZ0MnNAYmNjdG8ubWV8MTU2NTg1NTQ0MQ==|44c7bcefa4f4a6c2b0fcb9da6bfd17ceaa3ff698e0b5ea96684d056042a0eace"; time="2|1:0|10:1565855441|4:time|16:MTU2NTg1NTQ0MQ==|d6140e57c92e116313744f4a8bb104255f3507e40798f01bb00867762afe2e75"',
+        'Host': 'rootsh.com',
+        'Origin': 'https://rootsh.com',
         'Pragma': 'no-cache',
-        'Referer': 'https://bccto.me/',
+        'Referer': 'https://rootsh.com/',
         }
         self.session.headers.update(headers)
         header=self.session.headers

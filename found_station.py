@@ -52,7 +52,7 @@ class zoomEy:
                 account = vpnAccount(email.getMailAddr(),self.hosts[i])  #准备开始申请账号
                 try:
                     requests.get(self.hosts[i],timeout=8,verify=False)
-                except exceptions.Timeout as e:     #超时了
+                except:     #超时了
                     print("[%s]连接超时"%(self.hosts[i]))
                     self.hosts.pop(i)
                     i -= 1
@@ -78,6 +78,10 @@ class zoomEy:
             return False
 
 z = zoomEy()
+
+
+
+
 z.getAccessToken()
 z.search('shadowsocks-manager')
 email = email()  #先生成一个邮箱

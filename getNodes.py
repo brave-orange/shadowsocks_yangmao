@@ -18,7 +18,7 @@ for item in range(count):
     oldData = redis.lpop(HOSTSKEY)
     now = time.time()*1000
     second = round((json.loads(oldData)['end_time_step'] - now))
-    if not second < 0-(3*3600):
+    if not second < 0-(600):
         redis.rpush(HOSTSKEY,oldData)
 hostsFile = open('E:/Python/tool/shadowsocks_yangmao/hosts/hosts.json','r')
 hosts = json.loads(hostsFile.read())
