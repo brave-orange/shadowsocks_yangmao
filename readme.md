@@ -9,6 +9,9 @@
 + 使用`os.system()`运行`shadowsocks.exe`
 
 ## 使用
+
+`find_station.py`--扫描有效的SSR网站，使用钟馗之眼的api完成，需要去注册账号
+`getNodes.py`--获取可用的ssr节点
 编辑`config.py`修改`shadowsocks_path`为你的shadowsocks.exe所在目录
 装好相应的库直接运行run.py即可执行抓取
 
@@ -24,6 +27,7 @@
  ```python
  
 import json,random
+
 f = open('hosts/hosts.json','r')
 res = f.read()
 hosts = json.loads(res)
@@ -33,10 +37,11 @@ else:
     api_host = hosts[random.randint(0,len(hosts)-1)]
 
 config = {
-"apply_url":"https://bccto.me/applymail",
-"getmail_url":"https://bccto.me/getmail",
-"mail_content_url":"https://bccto.me/win/",
-"mail_host":["1766258.com","esoumail.com","juyouxi.com","a7996.com"], #@hotmail.cn
+"apply_url":"https://rootsh.com/applymail",
+"getmail_url":"https://rootsh.com/getmail",
+"mail_content_url":"https://rootsh.com/win/",
+"mail_base_url":"https://rootsh.com",
+"mail_host":["mihayo39.icu","mihayo37.icu","mihayo38.icu","5897f.com","bccto.cc","mihayo33.icu","plmihayo22.icu","mihayo23.icu","mihayo21.icu"], #@hotmail.cn
 #"vpn_sign_vpn":"https://mmpvpn.com/api/home/signup"  #vpn网站注册地址http://176.119.29.45/home/signup
 "vpn_sign_vpn":api_host+"/api/home/signup" ,
 "vpn_api_url":api_host,
@@ -45,10 +50,10 @@ config = {
 "redis":{ 
         "host":"127.0.0.1",
         "port":6379,
-        "password":"abcdefg"
+        "password":"123456"
     },
-'zoomeyAccount':'465486@qq.com',
-'zoomeyPassword':'1654864186'
+'zoomeyAccount':'aaa@aaa.com',
+'zoomeyPassword':'www11111'
 
 }
 user_agent_list = ["Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36",
@@ -60,5 +65,5 @@ user_agent_list = ["Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHT
                     "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)",
                     "Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; en-US; rv:1.9.2.15) Gecko/20110303 Firefox/3.6.15",
                     ]
-shadowsocks_path = "D:/shadowsocks" 
+shadowsocks_path = "D:/shadowsocks"
  ```

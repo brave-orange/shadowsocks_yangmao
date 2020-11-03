@@ -15,7 +15,7 @@ class zoomEy:
         "password":config['zoomeyPassword']
         }
         res = requests.post(loginUrl,json.dumps(data))
-        print(res)
+        print(res.text)
         accessToken = json.loads(res.text)['access_token']
         self.token = accessToken
         print(accessToken)
