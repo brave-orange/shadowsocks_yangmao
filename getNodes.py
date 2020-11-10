@@ -57,7 +57,7 @@ for item in range(count):
     second = round((json.loads(oldData)['end_time_step'] - now))
     if not second < 0-(600):
         redis.rpush(HOSTSKEY,oldData)
-hostsFile = open('E:/Python/tool/shadowsocks_yangmao/hosts/hosts.json','r')
+hostsFile = open('hosts/hosts.json','r')
 hosts = json.loads(hostsFile.read())
 print(hosts)
 i=0
