@@ -31,7 +31,7 @@ class vpnAccount:   #注册vpn账号
         if res.text == "success":
             return True
         else:
-            print("发送验证码失败%s"%(res.text))
+            print("发送验证码失败")
             return False
     def signUp(self,verifyCode):   #注册账号
         

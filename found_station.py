@@ -1,4 +1,4 @@
-import requests,json
+import requests,json,threading
 from get_free_email import *
 from getVpnAccount import *
 from config import *
@@ -20,14 +20,14 @@ class zoomEy:
         self.token = accessToken
         print(accessToken)
     
-    def search(self,q):
+    def search(self,q,start,end):
         if self.token == "":
             return false
         header = {
-            "Authorization" : "JWT "+self.token
+            "API-KEY":config["API_KEY"][random.randint(0,len(config["API_KEY"])-1)]
         }
         searchUrl = "https://api.zoomeye.org/host/search"
-        for page in range(1,10):
+        for page in range(start,end):
             search = {
                 "query" : q,
                 "page":page
@@ -42,6 +42,7 @@ class zoomEy:
             for i in res:
                 hosts.append("%s://%s:%s"%(i['portinfo']['service'], i['ip'], i['portinfo']['port']))
             self.hosts.extend(hosts)
+            print(zoomRes)
             print("第%d页一共找到%d个节点,总共有:%d,可用:%d"%(page,len(hosts),total,zoomRes['available']))
         
     def screenStation(self, email, account):     #节点初筛
@@ -76,15 +77,23 @@ class zoomEy:
             return True
         else:
             return False
+def getStations(start,end):
 
-z = zoomEy()
-
-
-
-
-z.getAccessToken()
-z.search('shadowsocks-manager')
+    z = zoomEy()
+    # z.getAccessToken()
+    z.search('shadowsocks-manager',start,end)
+    
+    account = vpnAccount(email.getMailAddr())  #准备开始申请账号
+    z.screenStation(email,account)  #预先把没用的链接去了
+    z.save()
 email = email()  #先生成一个邮箱
-account = vpnAccount(email.getMailAddr())  #准备开始申请账号
-z.screenStation(email,account)  #预先把没用的链接去了
-z.save()
+x=1
+while x<=40:
+    start = x
+    end = x+1
+    t = threading.Thread(target=getStations, args=(start,end)) 
+    t.start()
+    # t.join()
+    x += 2
+
+

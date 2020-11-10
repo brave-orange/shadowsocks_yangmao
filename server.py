@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # encoding=utf-8
+# 
+# 跑在服务器上的脚本,用于博客上获取节点信息,以及在线配置下发
 from flask import Flask, jsonify, request, make_response
 from flask_cors import *
 from myRedis import *
@@ -31,6 +33,40 @@ def getSsr():       #获取节点
     res.headers['Access-Control-Allow-Headers']='*'
     return res, 200
 
+@app.route('/Delivery', methods=['GET','POST'])
+def configDelivery():
+    sConfig = {
+        "version": "4.3.1.0",
+        "configs":[]
+    }
+    data = request_parse(request)
+    if data.get("app_token") == config["app_token"]:
+        servers = []
+        res = redis.lrange(HOSTSKEY,0,-1)
+        for item in res:
+            item = json.loads(item)
+            servers.append({
+                  "server": item["host"],
+                  "server_port": item["port"],
+                  "password": item["password"],
+                  "method": item["method"],
+                  "plugin": "",  
+                  "plugin_opts": "",
+                  "remarks": "",
+                  "timeout": 5
+                 }) 
+        sConfig['configs'] = servers
+    res = make_response(jsonify(sConfig))
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    res.headers['Access-Control-Allow-Method'] = '*'
+    res.headers['Access-Control-Allow-Headers']='*'
+    return res, 200
+def request_parse(req_data):
+    if req_data.method == 'POST':
+        data = req_data.json
+    elif req_data.method == 'GET':
+        data = req_data.args
+    return data
 def getIpLock(ip):
     key = getLockKey(ip)
     res = redis.set(key,1,3)
