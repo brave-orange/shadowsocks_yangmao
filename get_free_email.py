@@ -115,7 +115,7 @@ class email:
         post_data = {"mail": self.mail_addr}
         try:
             res =  self.session.post(config["apply_url"],post_data,timeout=8)
-        except exceptions.Timeout as e:     #超时了
+        except requests.exceptions.Timeout as e:     #超时了
             print("超时了")
         if 'Set-Cookie' in res.headers:
             print("update cookie",res.headers['Set-Cookie'])
