@@ -6,7 +6,7 @@ from flask import Flask, jsonify, request, make_response
 from flask_cors import *
 from myRedis import *
 from config import *
-import hashlib,json
+import hashlib,json,base64
 # Instantiate our Node
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -77,8 +77,11 @@ def DeliverySS():
 
 
 def getSSLink(method,password,host,port):
-    link = "ss://%s:%s@%s:%s"%(method,password,host,port)
-    return link
+    link = "%s:%s@%s:%s"%(method,password,host,port)
+    link = base64.b64encode(link.encode("utf-8")).decode('utf-8')
+    link = link.replace("+","-")
+    link = link.replace("/","_")
+    return "ss://"+link
 
 
 
