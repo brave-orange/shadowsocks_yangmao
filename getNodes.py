@@ -26,28 +26,6 @@ def pingHost(ip):
     else:
         return 30000
         # 下面两行新增的
-
-# def ping(dst_addr):
-#     data_type = 8  # ICMP Echo Request
-#     data_code = 0  # must be zero
-#     data_checksum = 0  # "...with value 0 substituted for this field..."
-#     data_ID = 0  # Identifier
-#     data_Sequence = 1  # Sequence number
-#     payload_body = b'abcdefghijklmnopqrstuvwabcdefghi'  # data
-#     # dst_addr = socket.gethostbyname(host)  # 将主机名转ipv4地址格式，返回以ipv4地址格式的字符串，如果主机名称是ipv4地址，则它将保持不变
-#     print("正在 Ping [{0}] 具有 32 字节的数据:".format(dst_addr))
-#     relayTime = 0
-#     for i in range(0, 4):
-#         icmp_packet = request_ping(data_type, data_code, data_checksum, data_ID, data_Sequence + i, payload_body)
-#         send_request_ping_time, rawsocket, addr = raw_socket(dst_addr, icmp_packet)
-#         times = reply_ping(send_request_ping_time, rawsocket, data_Sequence + i)
-#         if times > 0:
-#             print("来自 {0} 的回复: 字节=32 时间={1}ms".format(addr, int(times * 1000)))
-#             relayTime += times
-#             time.sleep(0.7)
-#         else:
-#             relayTime += 2000             
-#     return relayTime/4
 #     
 print("先刷一遍数据")
 count = redis.llen(HOSTSKEY)
@@ -105,8 +83,8 @@ for hostItem in hosts:
                         print("代理IP为127.0.0.1")
                         continue
                     ttt = int(pingHost(x['host']) * 1000)
-                    if ttt > 1500:
-                        print(x['host']+ "延迟达到"+ttt+"淘汰")
+                    if ttt > 3000:
+                        print(x['host']+ "延迟达到%d淘汰"%ttt)
                         continue
                     x['password'] = host['password']
                     x['port'] = host['port']

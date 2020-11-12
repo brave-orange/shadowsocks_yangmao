@@ -1,4 +1,4 @@
-import requests,json,threading
+import requests,json,threading,random
 from get_free_email import *
 from getVpnAccount import *
 from config import *
@@ -9,22 +9,22 @@ class zoomEy:
     #     self.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6Ijk1MTI1NDIyOUBxcS5jb20iLCJpYXQiOjE1ODc3NDI3MjAsIm5iZiI6MTU4Nzc0MjcyMCwiZXhwIjoxNTg3Nzg1OTIwfQ.MQwRDGBlR1xR8X30rvURs6wUxSyCK8ve5LYnkRM3fRU"
         self.hosts = []
     def getAccessToken(self):
-        loginUrl = "https://api.zoomeye.org/user/login"
-        data = {
-        "username": config['zoomeyAccount'],
-        "password":config['zoomeyPassword']
-        }
-        res = requests.post(loginUrl,json.dumps(data))
-        print(res.text)
-        accessToken = json.loads(res.text)['access_token']
-        self.token = accessToken
-        print(accessToken)
+     #    loginUrl = "https://api.zoomeye.org/user/login"
+     #    data = {
+     # n   "username": config['zoomeyAccount'],
+     #    "password":config['zoomeyPassword']
+     #    }
+     #    res = requests.post(loginUrl,json.dumps(data))
+     #    print(res.text)
+     #    accessToken = json.loads(res.text)['access_token']
+        self.token = config["API_KEY"][random.randint(0,len(config["API_KEY"])-1)]
+
     
     def search(self,q,start,end):
         if self.token == "":
             return false
         header = {
-            "API-KEY":config["API_KEY"][random.randint(0,len(config["API_KEY"])-1)]
+            "API-KEY":self.token
         }
         searchUrl = "https://api.zoomeye.org/host/search"
         for page in range(start,end):
@@ -42,7 +42,6 @@ class zoomEy:
             for i in res:
                 hosts.append("%s://%s:%s"%(i['portinfo']['service'], i['ip'], i['portinfo']['port']))
             self.hosts.extend(hosts)
-            print(zoomRes)
             print("第%d页一共找到%d个节点,总共有:%d,可用:%d"%(page,len(hosts),total,zoomRes['available']))
         
     def screenStation(self, email, account):     #节点初筛
@@ -52,7 +51,7 @@ class zoomEy:
             while i < len(self.hosts):
                 account = vpnAccount(email.getMailAddr(),self.hosts[i])  #准备开始申请账号
                 try:
-                    requests.get(self.hosts[i],timeout=8,verify=False)
+                    requests.get(self.hosts[i],timeout=10,verify=False)
                 except:     #超时了
                     print("[%s]连接超时"%(self.hosts[i]))
                     self.hosts.pop(i)
@@ -80,7 +79,7 @@ class zoomEy:
 def getStations(start,end):
 
     z = zoomEy()
-    # z.getAccessToken()
+    z.getAccessToken()
     z.search('shadowsocks-manager',start,end)
     
     account = vpnAccount(email.getMailAddr())  #准备开始申请账号
@@ -94,6 +93,6 @@ while x<=40:
     t = threading.Thread(target=getStations, args=(start,end)) 
     t.start()
     # t.join()
-    x += 2
+    x += 4
 
 
