@@ -65,15 +65,15 @@ def configDelivery():
 @app.route('/DeliverySS', methods=['GET','POST'])
 def DeliverySS():
     data = request_parse(request)
-    ssRes = ""
+    ssRes = []
     if data.get("app_token") == config["app_token"]:
         servers = []
         res = redis.lrange(HOSTSKEY,0,-1)
         for item in res:
             item = json.loads(item)
             link = getSSLink(item["method"],item["password"],item["host"],item["port"])
-            ssRes = ssRes + " \n"+ link
-    return ssRes, 200
+            ssRes.append(link)
+    return json.dumps(ssRes), 200
 
 
 def getSSLink(method,password,host,port):
