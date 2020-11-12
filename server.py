@@ -65,7 +65,7 @@ def configDelivery():
 @app.route('/DeliverySS', methods=['GET','POST'])
 def DeliverySS():
     data = request_parse(request)
-    ssRes = []
+    ssRes = ""
     if data.get("app_token") == config["app_token"]:
         servers = []
         res = redis.lrange(HOSTSKEY,0,-1)
