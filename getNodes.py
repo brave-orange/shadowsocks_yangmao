@@ -82,7 +82,7 @@ for hostItem in hosts:
                     if x['host'] == "127.0.0.1" or x['host'] == "0.0.0.0":
                         print("代理IP为127.0.0.1")
                         continue
-                    ttt = int(pingHost(x['host']) * 1000)
+                    ttt = int(pingHost(x['host']))
                     if ttt > 3000:
                         print(x['host']+ "延迟达到%d淘汰"%ttt)
                         continue
