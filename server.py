@@ -72,8 +72,8 @@ def DeliverySS():
         for item in res:
             item = json.loads(item)
             link = getSSLink(item["method"],item["password"],item["host"],item["port"])
-            ssRes.append(link)
-    return json.dumps(ssRes), 200
+            ssRes = ssRes + "\r\n"+ link
+    return ssRes, 200
 
 
 def getSSLink(method,password,host,port):
